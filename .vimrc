@@ -31,6 +31,8 @@ set wildmode=list:longest
 " See the filename in open buffer
 set laststatus=2
 
+" Turn off the blastet swap file
+set noswapfile
 
 set wrap
 set textwidth=79
@@ -184,3 +186,14 @@ nmap <silent> <Leader>d :wincmd l<CR>
 
 map <Leader>b :buffers<CR>
 noremap <Space>b <C-^>
+
+function Resize()
+    :resize +100
+    :vertical resize +200
+endfunction
+
+noremap <Space>f :call Resize()<CR>
+noremap <Space>v <C-W>= <CR>
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F1> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
