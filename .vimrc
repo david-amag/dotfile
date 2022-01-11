@@ -197,3 +197,10 @@ noremap <Space>v <C-W>= <CR>
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F1> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" occurr equivalent
+function ListAllExamples(inword, infile)
+    execute "lvim a:inword a:infile | lopen"
+endfunction
+
+map <Leader>t :execute "vimgrep /" . expand("<cword>") . "/j %"<Bar>cw<CR>
