@@ -8,6 +8,8 @@ call plug#begin()
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'ajh17/vimcompletesme'
+    Plug 'vim-syntastic/syntastic'
+    Plug 'ambv/black'
 call plug#end()
 
 set nocompatible
@@ -36,15 +38,10 @@ set noswapfile
 
 set wrap
 set textwidth=79
-set tabstop=4
-set expandtab
-set shiftwidth=4
-set softtabstop=4
 
 set backspace=indent,eol,start
 
 set background=dark
-set shiftwidth=4
 set cursorline
 set showmatch
 let python_highlight_all=1
@@ -202,5 +199,19 @@ nnoremap <F1> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 function ListAllExamples(inword, infile)
     execute "lvim a:inword a:infile | lopen"
 endfunction
-
 map <Leader>t :execute "vimgrep /" . expand("<cword>") . "/j %"<Bar>cw<CR>
+
+au VimLeave * :!clear
+
+autocmd BufWritePost *.py silent! execute ':Black'
+
+
+" Syntastic plugin for linter
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
